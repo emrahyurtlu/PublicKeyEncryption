@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -12,8 +12,6 @@ namespace PublicKeyEncryption;
 public partial class MainWindow : Window
 {
     public List<int> EnChars = new();
-
-    public List<int> MessageInIntegers = new();
 
     public MainWindow()
     {
@@ -78,7 +76,6 @@ public partial class MainWindow : Window
 
         foreach (var value in values)
         {
-            MessageInIntegers.Add(value);
             EnChars.Add(Encrypt(value));
         }
 
@@ -100,13 +97,35 @@ public partial class MainWindow : Window
         c %= N;
         return c;
     }
-    private char Decrypt(int messageChar)
+
+    private string Decrypt()
     {
-        var m = 1;
-        for (var i = 0; i < D; i++)
-            m = m * messageChar % N;
-        m %= N;
-        return (char)m;
+        CipheredTextInHex = TB_CIPHERED_HEX_TEXT1.Text;
+        var hexList = new List<string>();
+        for (var i = 0; i < CipheredTextInHex.Length; i += 4)
+        {
+            var str = CipheredTextInHex.Substring(i, 4);
+            hexList.Add(str);
+        }
+
+        EnChars = new List<int>();
+
+        foreach (var hexValue in hexList)
+        {
+            var intFromHex = int.Parse(hexValue, NumberStyles.HexNumber);
+            EnChars.Add(intFromHex);
+        }
+
+        TB_CIPHERED_IN_INTEGER.Text = EnChars.Aggregate("", (current, c) => current + (c + " "));
+
+        var plainText = "";
+        foreach (var message in EnChars)
+        {
+            var result = (char)(message);
+            plainText += result;
+        }
+
+        return plainText;
     }
 
     private void BTN_CLEAR_Click_1(object sender, RoutedEventArgs e)
@@ -121,21 +140,6 @@ public partial class MainWindow : Window
 
     private void BTN_DECRYPT_Click(object sender, RoutedEventArgs e)
     {
-        CipheredTextInHex = TB_CIPHERED_HEX_TEXT1.Text;
-        var hexList = new List<string>();
-        for (int i = 0; i < CipheredTextInHex.Length; i += 4)
-        {
-            var str = CipheredTextInHex.Substring(i, 4);
-            hexList.Add(str);
-        }
-
-        //TB_CIPHERED_IN_INTEGER.Text = hexList.Aggregate("", (current, c) => current + (c + " "));
-        foreach (var hexValue in hexList)
-        {
-            int intFromHex = int.Parse(hexValue, System.Globalization.NumberStyles.HexNumber);
-            MessageInIntegers.Add(intFromHex);
-        }
-
-        TB_CIPHERED_IN_INTEGER.Text = MessageInIntegers.Aggregate("", (current, c) => current + (c + " "));
+        TB_RESERSED_PLAIN_TEXT.Text = Decrypt();
     }
 }
