@@ -6,10 +6,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TabControl>
+        <TabControl Margin="0,0,0,-53">
             <TabItem Header="Key Selection">
-                <Grid Background="#FFE5E5E5">
-                    <Grid>
+                <Grid x:Name="Input_Values" Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="66*"/>
+                        <ColumnDefinition Width="331*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid x:Name="Enter_Z" Grid.ColumnSpan="2">
                         <Label Content="Enter first prime number (p):" HorizontalAlignment="Left" Margin="20,10,0,0"
                                VerticalAlignment="Top" />
                         <TextBox x:Name="TB_P" HorizontalAlignment="Left" Margin="20,36,0,0" TextWrapping="Wrap"
@@ -30,59 +34,85 @@
                                  VerticalAlignment="Top" Width="120" IsEnabled="False" />
                     </Grid>
 
-                    <Grid>
+                    <Grid x:Name="Enter_E" Grid.ColumnSpan="2">
                         <Rectangle HorizontalAlignment="Center" Height="1" Margin="0,118,0,0" Stroke="Black"
                                    VerticalAlignment="Top" Width="756" />
                         <TextBox x:Name="TB_E" HorizontalAlignment="Left" Margin="198,138,0,0" TextWrapping="Wrap"
                                  Text="47" VerticalAlignment="Top" Width="120" />
                         <Button x:Name="BTN_CalculateKeys" Content="Calculate Keys" HorizontalAlignment="Left"
                                 Margin="348,136,0,0" VerticalAlignment="Top" Width="102"
-                                Click="Btn_CalculateKeys_Click" />
-                        <Button x:Name="BTN_Clear" Content="Clear" HorizontalAlignment="Left" Margin="498,134,0,0"
-                                VerticalAlignment="Top" RenderTransformOrigin="0.403,-0.243" Click="Btn_Clear_Click" />
+                                Click="Btn_CalculateKeys_Click" Height="52" />
+                        <Button x:Name="BTN_Clear" Content="Clear" HorizontalAlignment="Left" Margin="483,134,0,0"
+                                VerticalAlignment="Top" RenderTransformOrigin="0.403,-0.243" Click="Btn_Clear_Click" Height="54" Width="46" />
                         <Label Content="Enter e (e less than n prime to z):" HorizontalAlignment="Left"
                                Margin="19,133,0,0" VerticalAlignment="Top" />
+                        <Label Content="Enter d: " HorizontalAlignment="Left" Margin="19,166,0,0"
+                               VerticalAlignment="Top" />
+                        <TextBox x:Name="TB_D" HorizontalAlignment="Left" Margin="199,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="815" />
                     </Grid>
 
-                    <Grid>
-                        <Rectangle HorizontalAlignment="Center" Height="1" Margin="0,172,0,0" Stroke="Black"
-                                   VerticalAlignment="Top" Width="756" />
-                        <Label Content="Your public key is (e,n): " HorizontalAlignment="Left" Margin="19,178,0,0"
-                               VerticalAlignment="Top" />
-                        <Label Content="Your private key is (d, n): " HorizontalAlignment="Left" Margin="19,221,0,0"
-                               VerticalAlignment="Top" />
-                        <TextBox x:Name="TB_SHOW_PUBLIC_E" HorizontalAlignment="Left" Margin="163,182,0,0"
-                                 TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" />
-                        <TextBox x:Name="TB_SHOW_PUBLIC_N" HorizontalAlignment="Left" Margin="305,182,0,0"
-                                 TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" />
-                        <TextBox x:Name="TB_D" HorizontalAlignment="Left" Margin="163,229,0,0" TextWrapping="Wrap"
-                                 Text="815" VerticalAlignment="Top" Width="120" />
-                        <TextBox x:Name="TB_SHOW_PRIVATE_N" HorizontalAlignment="Left" Margin="305,229,0,0"
-                                 TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" />
+
+                    <Grid x:Name="___Show_Variables_" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="106*"/>
+                            <ColumnDefinition Width="23*"/>
+                            <ColumnDefinition Width="665*"/>
+                        </Grid.ColumnDefinitions>
+                        <Rectangle HorizontalAlignment="Left" Height="1" Margin="19,207,0,0" Stroke="Black"
+                                   VerticalAlignment="Top" Width="756" Grid.ColumnSpan="3" />
+                        <Label Content="Your public key is (e,n): " HorizontalAlignment="Left" Margin="19,218,0,0"
+                               VerticalAlignment="Top" Grid.ColumnSpan="3" />
+                        <Label Content="Your private key is (d, n): " HorizontalAlignment="Left" Margin="19,262,0,0"
+                               VerticalAlignment="Top" Grid.ColumnSpan="3" />
+                        <TextBox x:Name="TB_SHOW_PUBLIC_E" HorizontalAlignment="Left" Margin="34,222,0,0"
+                                 TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" Grid.Column="2" />
+                        <TextBox x:Name="TB_SHOW_PUBLIC_N" HorizontalAlignment="Left" Margin="176,222,0,0"
+                                 TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" Grid.Column="2" />
+                        <TextBox x:Name="TB_SHOW_PRIVATE_D" HorizontalAlignment="Left" Margin="34,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" Grid.Column="2" />
+                        <TextBox x:Name="TB_SHOW_PRIVATE_N" HorizontalAlignment="Left" Margin="176,270,0,0"
+                                 TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" Grid.Column="2" />
                     </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Encryption">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="29*"/>
-                        <ColumnDefinition Width="368*"/>
+                        <ColumnDefinition Width="29*" />
+                        <ColumnDefinition Width="368*" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="51*"/>
-                            <ColumnDefinition Width="743*"/>
+                            <ColumnDefinition Width="51*" />
+                            <ColumnDefinition Width="743*" />
                         </Grid.ColumnDefinitions>
                     </Grid>
-                    <Label Content="Enter Plaint Text:" HorizontalAlignment="Left" Margin="21,10,0,0" VerticalAlignment="Top" Width="145" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="TB_PLAIN_TEXT" HorizontalAlignment="Left" Margin="21,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="660" Height="92" Grid.ColumnSpan="2"/>
-                    <Button x:Name="BTN_ENCRYPT" Content="Encrypt" HorizontalAlignment="Left" Margin="21,138,0,0" VerticalAlignment="Top" Click="Btn_Encrypt_Click" Width="87" Grid.ColumnSpan="2"/>
-                    <Label Content="Ciphered Text (int):" HorizontalAlignment="Left" Margin="20,177,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="TB_CIPHERED_INT_TEXT" HorizontalAlignment="Left" Margin="21,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="660" Height="82" Grid.ColumnSpan="2"/>
+                    <Label Content="Enter Plaint Text:" HorizontalAlignment="Left" Margin="21,10,0,0"
+                           VerticalAlignment="Top" Width="145" Grid.ColumnSpan="2" />
+                    <TextBox x:Name="TB_PLAIN_TEXT" HorizontalAlignment="Left" Margin="21,41,0,0" TextWrapping="Wrap"
+                             VerticalAlignment="Top" Width="660" Height="63" Grid.ColumnSpan="2" Text="murat koyuncu" />
+                    <Button x:Name="BTN_ENCRYPT" Content="Encrypt" HorizontalAlignment="Left" Margin="21,118,0,0"
+                            VerticalAlignment="Top" Click="Btn_Encrypt_Click" Width="87" Grid.ColumnSpan="2" />
+                    <Label Content="Ciphered Text (int):" HorizontalAlignment="Left" Margin="20,157,0,0"
+                           VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"
+                           Grid.ColumnSpan="2" />
+                    <TextBox x:Name="TB_CIPHERED_INT_TEXT" HorizontalAlignment="Left" Margin="21,188,0,0"
+                             TextWrapping="Wrap" VerticalAlignment="Top" Width="660" Height="48" Grid.ColumnSpan="2" />
+                    <Label Content="Ciphered Text (in Hex):" HorizontalAlignment="Left" Margin="21,263,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="TB_CIPHERED_HEX_TEXT" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="21,294,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="660" Height="53"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Decryption">
-                <Grid Background="#FFE5E5E5" />
+                <Grid Background="#FFE5E5E5" >
+                    <Label Content="Ciphere Text (in Hex):" HorizontalAlignment="Left" Margin="19,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="TB_CIPHERED_HEX_TEXT1" HorizontalAlignment="Left" Margin="21,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="658" Height="72"/>
+                    <TextBox x:Name="TB_CIPHERED_IN_INTEGER" HorizontalAlignment="Left" Margin="21,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="658" Height="55"/>
+                    <TextBox x:Name="TB_RESERSED_PLAIN_TEXT" HorizontalAlignment="Left" Margin="23,275,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="656" Height="54"/>
+                    <Button x:Name="BTN_DECRYPT" Content="Decrypt" HorizontalAlignment="Left" Margin="21,127,0,0" VerticalAlignment="Top" Width="80" Height="24" Click="BTN_DECRYPT_Click"/>
+                    <Button x:Name="BTN_CLEAR" Content="Clear" HorizontalAlignment="Left" Margin="23,343,0,0" VerticalAlignment="Top" Click="BTN_CLEAR_Click_1" Height="24" Width="42"/>
+                    <Button x:Name="BTN_EXIT" Content="Exit" HorizontalAlignment="Left" Margin="88,343,0,0" VerticalAlignment="Top" Height="24" Width="30" Click="BTN_EXIT_Click"/>
+                    <Label Content="Ciphere Text (in Integer):" HorizontalAlignment="Left" Margin="19,158,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Plain Text" HorizontalAlignment="Left" Margin="23,244,0,0" VerticalAlignment="Top"/>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>
